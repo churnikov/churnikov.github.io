@@ -14,6 +14,8 @@ We've moved Sweden on 18th of September 2022. To get there we left Saint-Petersb
 
 Without details it fits into two sentences, but I want to add details. If you want to know them read this post.
 
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af617a2cafaf1b1a9c4b8c0006872fe6045e9defbef2d57fcd1bc7e0f43af8a20&amp;width=726&amp;height=326&amp;lang=ru_RU&amp;scroll=true"></script>
+
 <!--more-->
 
 ## Doing all the legal things right
@@ -103,6 +105,8 @@ We quickly got to the bus station got off and started crawling like a turtle tow
 The moment we picked out things up I started to doubt that it was a good idea to take scooters with us. The fact that we had to carry backpacks, scooters and two suitcases per person.. I really did not imagine how hard will it be to carry. But there was nothing left to do. We had to get to the Hotel. Right now I can't believe that it was just one kilometer, because it felt like 5 kilometers and we were going there not 12 minutes, but 30 or 40. During the time we were going there I was thinking about conveniences for low mobility people. Like how how hard it is for an old lady must be going to some place. And how hard it is to walk around Russian cities with their holes in the ground and not working elevators. 
 
 Firstly, when we got off the bus and took our stuff, we had to get out from the Kampi station. Fortunately, there was an elevator that took us to the street. At that time we were approaching our low mobility head on and did not look around in order to know our surroundings. We looked at the map and went how it was showing us. Unfortunately [2] we did not have internet at the time, but I've downloaded maps of Stockholm and Helsinki. And so we had to figure out how to get to our destination almost the old way. As I understand now, we made a big loop compared to google maps suggested route. Maybe that's one of the reasons why our crawl felt like an hour.
+
+
 
 ## From Helsinki to Stockholm
 
