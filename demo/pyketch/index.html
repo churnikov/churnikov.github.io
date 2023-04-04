@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -26,18 +27,25 @@
     <p>
       Run this cell to add molecule to the drawing board and get its smiles back
       To run cell, click on it and press Shift+Enter.
+			<py-repl>
+				import js
+				import asyncio
+				async def get_smiles():
+					ketcherFrame = js.document.getElementById('ifKetcher')
+					ketcher = ketcherFrame.contentWindow.ketcher
+					await ketcher.setMolecule("CN1C=NC2=C1C(=O)N(C(=O)N2C)C")
+					return await ketcher.getSmiles()
+				asyncio.ensure_future(get_smiles())
+			</py-repl>
       <py-repl>
-        import js
-        ketcherFrame = js.document.getElementById('ifKetcher')
-        ketcher = ketcherFrame.contentWindow.ketcher
-        await ketcher.setMolecule("CN1C=NC2=C1C(=O)N(C(=O)N2C)C")
-        smiles = await ketcher.getSmiles()
-      </py-repl>
+				smiles = asyncio.ensure_future(get_smiles())
+				smiles
+			</py-repl>
     </p>
     <p>
       Run this cell to convert ketcher smiles to rdkit smiles with rdkit.js
       <py-repl>
-        mol = js.RDKitModule.get_mol(smiles)
+        mol = js.RDKitModule.get_mol(smiles.result())
         mol.get_smiles()
       </py-repl>
     </p>
