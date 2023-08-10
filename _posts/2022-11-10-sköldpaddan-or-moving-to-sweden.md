@@ -7,6 +7,33 @@ tags:
   - Post Formats
   - readability
   - standard
+layout: splash
+classes:
+  - wide
+excerpt: Two turtles slowly carring stuff for two days full of sadness and excitement.
+header:
+  overlay_image: https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/2022-09-22-14-14-33.jpg
+  overlay_color: "#333"
+  overlay_filter: 0.5
+helsinki-views:
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2650.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2650_resized.jpg"
+    alt: "rst"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2656.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2656_resized.jpg"
+    alt: "rst"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2663.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2663_resized.jpg"
+    alt: "rst"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2763.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2763_resized.jpg"
+    alt: "rst"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2683.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2683_resized.jpg"
+    alt: "rst"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2774.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/preview/DSCF2774_resized.jpg"
+    alt: "rst"
 ---
 
 
@@ -14,9 +41,10 @@ We've moved Sweden on 18th of September 2022. To get there we left Saint-Petersb
 
 Without details it fits into two sentences, but I want to add details. If you want to know them read this post.
 
-<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af617a2cafaf1b1a9c4b8c0006872fe6045e9defbef2d57fcd1bc7e0f43af8a20&amp;width=726&amp;height=326&amp;lang=ru_RU&amp;scroll=true"></script>
 
 <!--more-->
+
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af617a2cafaf1b1a9c4b8c0006872fe6045e9defbef2d57fcd1bc7e0f43af8a20&amp;width=880&amp;height=353&amp;lang=en_FR&amp;scroll=true"></script>
 
 ## Doing all the legal things right
 
@@ -73,10 +101,55 @@ We wanted to take a ferry to Stockholm, because it did not restrict us in terms 
 
 ## Packing up
 
+I tried really hard to prepare us for this trip as best as I could. Here I'm going to describe some things that worked
+well, some, that didn't quite worked. And I'm also going to write some updates from the future.
+
+### Conserving home
+
+At the moment we really thought that we would come for the New Year to Russia. (Ha-ha, Mobilization). But still, it
+would have been a long time until we would be back home. So I thought that we would keep as many things as possible in
+vacume bags. [link to yandex]
+
+I tried to wrap furniture as well, but I could not finish it. So it Basically abanonned idea.
+
+**Update from August 2023:**<br>
+Seems like it works pretty good. My parents tell me that out appartment in Saint-Petersburg doesn't smell bad or of old
+clothes. And actual thing doesn't collect as much dust.
+{: .notice--info} 
+
+### Taking stuff with us
+This is where the pan shined. Majority of it instantly turned out to be good. But I wish I knew about this website
+before packing: [packhacker.com/](packhacker.com/).
+
+- Packing cubes: I bought pretty basic ones. But they were already some good organizers. Specifically: cubes for [cables](), [clothes](), [underware(thsee Specifically are useless for men) ]()
+- Vacume bags: Really good for winter clothes. We were able to take much more than without them. They are super good at
+  comressing stuff that is conpressable.
+- Nintendo Switch! Man, if you need to trevel a lot, that's a great entertaining conmpanion
+- Bag for Nintendo Switch
+
+**Update from August 2023:**<br>
+But again, I can highly recommend going through [packhacker.com/](packhacker.com/) packing lists. I didn't read any
+guides and used common sense, but they are much better at making packing lists. 
+{: .notice--info} 
+
+### Scooters
+
+When we were getting to ready, and estimating where we would be living, I was going through google street view of our
+surroundings. And the amount of bike lanes in Stockholm looked super promissing. Plus videos from Varlamov encouraged us
+to try to take scooters. So we did. That was an instant mistake. Not a fatal one, but still.
+
+**Update from August 2023:**<br>
+We really didn't need scooters. They turned out to be not that convinient in Stockholm. Pavement is too rough, too many
+hills and it's still pretty often wet here. Better to have a bike here for sure.
+{: .notice--info} 
+
+
 ## From Saint Petersburg to Helsinki
 16th of September. Five days before announcement of the Draft (Mobilization). We knew that it's going to happen, because all the knews were about it. Government people denied it as usual. All analytics were talking why it'll happen, depite it being unpopular. Every day from 12th (TODO: check) till 16th we were checking news on that. But everything was allright whan we left.
 
 We bus was leaving at 14:00 MSK. On the day before Irina came to Saint-Petersburg. We rented an appartment for her close to us, so she just came to our place and we took a taxi to the bus station. For some reason, there were huge trafic jams in the city and I was worried that we are going to be late. But we arrived 20 minutes before departure. My parents go the place 5 minutes before departure. We were standing in the queue on the bus and she called me on the phone, crying. They were standing at the fence of the station, 10 meters from us. I told her to come inside the station, so that we could say goodbye properly. She did not hear it, she was crying in my ear. So I asked Tanya to look after our things and ran into the station building. We hugged for the last time, and I ran back. They were stating at the fence again. I called them and we agreed to stay in touch. When the bus took off I started crying. I cryed for 20 minutes I think.
+
+{% include video id="huSW52e3RKU" width="111" provider="youtube" caption="My awesome video" %}
 
 It's funny actually, Tanya and I went to the Helsinki for first time as friends and returned as a couple. And now we were going there after 3 years. From my point of view, the trip to the border was really fast. 3 years ago it felt like forever to get there and now it felt like we've just got on a bus and now have to disembark.
 
@@ -106,7 +179,9 @@ The moment we picked out things up I started to doubt that it was a good idea to
 
 Firstly, when we got off the bus and took our stuff, we had to get out from the Kampi station. Fortunately, there was an elevator that took us to the street. At that time we were approaching our low mobility head on and did not look around in order to know our surroundings. We looked at the map and went how it was showing us. Unfortunately [2] we did not have internet at the time, but I've downloaded maps of Stockholm and Helsinki. And so we had to figure out how to get to our destination almost the old way. As I understand now, we made a big loop compared to google maps suggested route. Maybe that's one of the reasons why our crawl felt like an hour.
 
+{% include figure image_path="https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Helsinki/city-views/DSCF2662.jpg" alt="Helsinki Railway station entrance" caption="Railway station entrance" %}
 
+{% include gallery id="helsinki-views" caption="Some city views" %}
 
 ## From Helsinki to Stockholm
 
