@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover Pop Out Effect</title>
+    <style>
+      body {
+      font-family: Arial, sans-serif;
+      transition: opacity 0.3s;
+      }
+
+      .hover-object {
+      width: 150px;
+      height: 150px;
+      background-color: #3498db;
+      margin: 50px auto;
+      transition: transform 0.3s;
+      cursor: pointer;
+      z-index: 10;
+      position:
+      relative;
+      }
+
+      .hover-object:hover {
+      transform: scale(1.2);
+      }
+
+      .hover-object:hover ~ *:not(.hover-object) {
+      opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hover-object"></div>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in
+    efficitur leo. In hac habitasse platea dictumst. Sed ullamcorper nunc a tincidunt facilisis. Duis aliquet,
+    risus nec aliquam hendrerit, nunc quam varius lorem, vitae consectetur enim metus vel augue. Proin rutrum,
+    libero non pretium faucibus, libero neque egestas augue, eu vulputate magna eros eu erat.</p>
+  </body>
+</html>
+
