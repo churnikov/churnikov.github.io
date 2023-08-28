@@ -447,12 +447,13 @@ So.. no hope?
 Setup
 
 
-```html[6-11]
+```html[6-12]
 <head>
 ...
 <!-- "Installation" of PyScript -->
 <script defer src="https://pyscript.net/latest/pyscript.js">__SCRIPT_END__
 <link rel="stylesheet" type="text/css" href="https://pyscript.net/latest/pyscript.css" />
+<script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js">__SCRIPT_END__
 <script>
 initRDKitModule().then(function (instance) {
   RDKitModule = instance;
