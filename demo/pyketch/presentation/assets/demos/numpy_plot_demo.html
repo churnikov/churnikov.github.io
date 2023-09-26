@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Add rdkit to pyscript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
+    <py-config>
+      terminal = false
+      docked = false
+      packages = ["numpy", "matplotlib"]
+
+      [splashscreen]
+      autoclose = true
+
+      [[interpreters]]
+      src = "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
+      name = "pyodide-0.23.4"
+      lang = "python"
+
+    </py-config>
+  </head>
+  <body>
+		<p style="font-size: 40;">
+  <py-repl >
+import matplotlib.pyplot as plt
+import numpy as np
+from pyscript import display
+
+plt.style.use('_mpl-gallery')
+
+# make data
+x = np.linspace(0, 10, 100)
+y = 4 + 2 * np.sin(2 * x)
+
+# plot
+fig, ax = plt.subplots()
+
+ax.plot(x, y, linewidth=2.0)
+
+ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+       ylim=(0, 8), yticks=np.arange(1, 8))
+
+display(fig)
+
+  </py-repl>
+		</p>
+  <p>
+    <div id="plot"></div>
+  </p>
+  </body>
+</html>

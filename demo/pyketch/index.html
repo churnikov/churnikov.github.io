@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PyScript Mol demo</title>
-    <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-    <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
-    <!-- Instantiate the WASM module. The inline script below could live elsewhere inside your application code. -->
-  </head>
-  <script>
-    initRDKitModule().then(function (instance) {
-      RDKitModule = instance;
-      console.log("version: " + RDKitModule.version());
-    });
-  </script>
-  <body>
-    <h1> PyScript demo with Ketcher and Rdkit.js</h1>
-    <h2> Ketcher window</h2>
-    <iframe id="ifKetcher" src="https://churnikov.github.io/demo/pyketch/ketcher/index.html" width="800" height="600"></iframe>
-    <!-- <iframe id="ifKetcher" src="ketcher/index.html" width="800" height="600"></iframe> -->
-    <script src="assets/scripts/main.js"></script>
-    <h2> Access JavaScript elements from python</h2>
-    <p>
-      Run this cell to add molecule to the drawing board and get its smiles back
-      To run cell, click on it and press Shift+Enter.
-      <py-repl>
-        import js
-        ketcherFrame = js.document.getElementById('ifKetcher')
-        ketcher = ketcherFrame.contentWindow.ketcher
-        await ketcher.setMolecule("CN1C=NC2=C1C(=O)N(C(=O)N2C)C")
-        smiles = await ketcher.getSmiles()
-      </py-repl>
-    </p>
-    <p>
-      Run this cell to convert ketcher smiles to rdkit smiles with rdkit.js
-      <py-repl>
-        mol = js.RDKitModule.get_mol(smiles)
-        mol.get_smiles()
-      </py-repl>
-    </p>
-    <p>
-      There are many more <a href="https://lifescience.opensource.epam.com/ketcher/index.html">Ketcher</a> and <a href="https://www.rdkitjs.com">Rdkit.js</a> javascript methods. Refer to their documentation for more info:
-    <ul>
-      <li><a href="https://lifescience.opensource.epam.com/ketcher/developers-manual.html">Ketcher JS docs</a></li>
-      <li><a href="https://www.rdkitjs.com">Rdkit.js docs</a></li>
-    </ul>
-    </p>
-    <h2>How it works</h2>
-    <p>
-      You can <a href="https://engineering.anaconda.com/2022/04/welcome-pyscript.html">read anacondas announcement </a> on what is PyScript. Essentially it's python that runs in the browser. Important that it's not python translated to javascript, but it's actual python compiled for browser.
-    </p>
-    <p>
-      PyScript was created in such a way that you can easily use python functions in JavaScript and parts of JavaScript in python.
-    </p>
-    <p>
-      In <a href="https://gist.github.com/churnikov/b38940f190efea1f6f13e3f29204ff88">this gist</a> you can find how to set up ketcher and PyScript for local development.
-    </p>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PyScript Mol demo</title>
+        <link rel="stylesheet" href="assets/styles/main.css">
+        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
+        <!-- Instantiate the WASM module. The inline script below could live elsewhere inside your application code. -->
+    </head>
+    <script>
+        initRDKitModule().then(function (instance) {
+          RDKitModule = instance;
+          console.log("version: " + RDKitModule.version());
+        });
+    </script>
+    <body>
+        <h1> PyScript demo with Ketcher and Rdkit.js</h1>
+        <h2> Ketcher window</h2>
+        <iframe id="ifKetcher" src="https://churnikov.github.io/demo/pyketch/ketcher/index.html" width="800" height="600"></iframe>
+        <!-- <iframe id="ifKetcher" src="ketcher/index.html" width="800" height="600"></iframe> -->
+        <script src="assets/scripts/main.js"></script>
+        <h2> Access JavaScript elements from python</h2>
+        <p>
+            Run this cell to add molecule to the drawing board and get its smiles back
+            To run cell, click on it and press Shift+Enter.
+            <py-repl>
+                import js
+                import asyncio
+                async def get_smiles():
+                    ketcherFrame = js.document.getElementById('ifKetcher')
+                    ketcher = ketcherFrame.contentWindow.ketcher
+                    await ketcher.setMolecule("CN1C=NC2=C1C(=O)N(C(=O)N2C)C")
+                    return await ketcher.getSmiles()
+                asyncio.ensure_future(get_smiles())
+            </py-repl>
+            <py-repl>
+                smiles = asyncio.ensure_future(get_smiles())
+                smiles
+            </py-repl>
+        </p>
+        <p>
+            Run this cell to convert ketcher smiles to rdkit smiles with rdkit.js
+            <py-repl>
+                mol = js.RDKitModule.get_mol(smiles.result())
+                mol.get_smiles()
+            </py-repl>
+        </p>
+        <p>
+            There are many more <a href="https://lifescience.opensource.epam.com/ketcher/index.html">Ketcher</a> and <a href="https://www.rdkitjs.com">Rdkit.js</a> javascript methods. Refer to their documentation for more info:
+        <ul>
+            <li><a href="https://lifescience.opensource.epam.com/ketcher/developers-manual.html">Ketcher JS docs</a></li>
+            <li><a href="https://www.rdkitjs.com">Rdkit.js docs</a></li>
+        </ul>
+        </p>
+        <h2>How it works</h2>
+        <p>
+            You can <a href="https://engineering.anaconda.com/2022/04/welcome-pyscript.html">read anacondas announcement </a> on what is PyScript. Essentially it's python that runs in the browser. Important that it's not python translated to javascript, but it's actual python compiled for browser.
+        </p>
+        <p>
+            PyScript was created in such a way that you can easily use python functions in JavaScript and parts of JavaScript in python.
+        </p>
+        <p>
+            In <a href="https://gist.github.com/churnikov/b38940f190efea1f6f13e3f29204ff88">this gist</a> you can find how to set up ketcher and PyScript for local development.
+        </p>
+    </body>
 </html>
+

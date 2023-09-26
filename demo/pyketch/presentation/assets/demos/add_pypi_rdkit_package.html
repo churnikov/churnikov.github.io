@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Add rdkit to pyscript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+<!-- Add pyscript link -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
+    <py-config>
+      terminal = false
+      docked = false
+      packages = ["rdkit"]
+
+      [splashscreen]
+      autoclose = true
+
+      [[interpreters]]
+      src = "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
+      name = "pyodide-0.23.4"
+      lang = "python"
+
+    </py-config>
+  </head>
+  <body>
+  
+  </body>
+</html>
