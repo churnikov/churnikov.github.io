@@ -149,7 +149,7 @@ story. If you're interested in the details, continue reading this post.
 # Prepare for boarding!
 
 Our journey began well before the 16th of September. It truly started when my wife, Tanya, received her 
-offer from KTH (Royal Institute of Technology) in Stockholm in July 2022. We spent two months preparing 
+offer from KTH Royal Institute of Technology in Stockholm in July 2022. We spent two months preparing 
 for our move, and there was much to be done.
 
 ## Useful resources
@@ -214,7 +214,7 @@ cheapest to the most convenient options.
 Clearly, the bus-hotel-ferry combination was the most cost-effective and convenient way to reach 
 Stockholm.
 
-**So what we did ourselves**
+**So what we did**
 
 To get to Helsinki, we bought tickets from [Ecolines](https://ecolines.ru/ru/ru). Fortunately, it was 
 possible to make the purchase with a Russian debit card. We also managed to book a hotel via booking.com 
@@ -235,7 +235,7 @@ Canada agreed to cover two months of our stay, and my wife's father reimbursed h
 
 It's worth noting that without my Armenian friend, David, and our international connections, we 
 couldn't have managed certain payments, like the Swedish council fee. Reflecting on this, I often 
-thought about individuals from remote Russian regions without such connections. We truly are fortunate 
+thought about individuals without any friends or relatives abroad. We truly are fortunate 
 in this aspect.
 {: .notice--info}
 ## Packing up
@@ -286,12 +286,12 @@ did. It was an immediate oversight, not catastrophic, but regrettable.
 
 The issue was that we brought many items with us, and the scooters felt like the straw that 
 might break the camel's back. Fortunately, it didn't come to that, but it was a close call. In 
-Stockholm, it turned out that scooters weren't particularly useful. The buses are efficient, 
+Stockholm, it turned out that scooters without engine weren't particularly useful. The buses are efficient, 
 and the pavements aren't scooter-friendly.
 
 **Update from August 2023:**<br>
 We really didn't need the scooters. They turned out to be inconvenient in Stockholm. The 
-pavement is rough, there are many hills, and it's often wet. A bike would definitely be a 
+pavement is rough, there are many hills, and it's often wet. A bike or electric scooter would definitely be a 
 better choice here.
 {: .notice--info} 
 
@@ -320,7 +320,7 @@ when Mom called me, crying. They were by the station's fence, just 10 meters awa
 to come inside so we could say our goodbyes properly. She didn't hear me; she was sobbing. I 
 asked Tanya to watch our belongings and ran into the station. We hugged one last time, and I 
 rushed back. They were at the fence again. I called them, and we agreed to stay in touch. As 
-the bus pulled away, I began to cry, a sorrow that lasted for about 20 minutes.
+the bus pulled away, I also began to cry.
 
 {% include figure
 image_path="https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/SPB/on-the-last-day/IMG_3265.HEIC.jpg"
@@ -329,7 +329,7 @@ caption="Bus station"
 
 {% include video id="huSW52e3RKU" width="111" provider="youtube" caption="My awesome video" %}
 
-When I calmed down, I felt this joy and excitement from the trip ahead. I remembered how Tanya 
+After calming down, I experienced a sense of joy and excitement for the upcoming trip. I remembered how Tanya 
 and I went to Helsinki for the first time as friends and returned as a couple in 2019. And now 
 we were going there as a family after 3 years. From my perspective, the trip to the border was 
 swift. Three years ago, it felt like an eternity to get there, but now it seemed like we'd 
@@ -461,7 +461,7 @@ But the moment we stepped on the shore of Stockholm, we realized that we had to 
 hotel. And while figuring out what to do, we realized that all taxis were gone, there were no 
 people at the terminal, and we didn't really know where to go from there. Thinking about it 
 now, we should have asked for help from friends who were in Stockholm or either of our 
-employers. But we had to do something right now.
+employers. But we had to do something at that moment.
 
 So we spent some time configuring terminal wifi, setting up Revolut, and trying to register in 
 taxi apps using it. It didn't work.
@@ -548,7 +548,7 @@ Calm water
 
 # Final word on 19.09.2023
 
-It was a year since Tanya started working at KTH, since we moved to Sweden. So many things
+It was a year since Tanya started working at KTH and since we moved to Sweden. So many things
 happened during that time. A lot of them are good, like we made some great friends here and
 traveled a lot. And some of it is not so good (Bureaucracy could be better sometimes).
 Sometimes we spend time being nostalgic about Russia. And all that is good. Really good. I'm
