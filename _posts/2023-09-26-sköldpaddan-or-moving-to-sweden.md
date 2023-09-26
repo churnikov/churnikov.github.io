@@ -122,18 +122,18 @@ suburban-stockholm-houses:
     image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/close-to-magnolia-house/2022-09-23-14-59-28.HEIC_resized.jpg"
     alt: "Suburban houses"
 magnolia-house:
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/tanya/%D0%A4%D0%BE%D1%82%D0%BE%2018.09.2022,%2018%2007%2015.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/tanya/%D0%A4%D0%BE%D1%82%D0%BE%2018.09.2022,%2018%2007%2015_resized.jpg"
+    alt: "Magnolia house"
+  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/tanya/%D0%A4%D0%BE%D1%82%D0%BE%2001.10.2022,%2014%2012%2034.jpg"
+    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/tanya/%D0%A4%D0%BE%D1%82%D0%BE%2001.10.2022,%2014%2012%2034_resized.jpg"
+    alt: "View from the window"
   - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.29.58.jpeg"
     image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.29.58.jpeg"
     alt: "Inside the house"
   - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.00.jpeg"
     image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.00.jpeg"
     alt: "Inside the house"
-  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.01.jpeg"
-    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.01.jpeg"
-    alt: "Bathroom"
-  - url: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.02.jpeg"
-    image_path: "https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Stockholm/photo_2023-08-04%2018.30.02.jpeg"
-    alt: "Bathroom"
 ---
 
 We moved to Sweden on the 18th of September 2022. Our journey began in Saint-Petersburg on the 16th, 
@@ -447,7 +447,15 @@ some salted fish sandwiches from the Helsinki market.
 
 {% include figure image_path="https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Ferry/DSCF2339.jpg" alt="Two seagulls flying to Stockholm" caption="Two seagulls flying to Stockholm" %}
 
+{% include figure
+image_path="https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Ferry/tanya/%D0%A4%D0%BE%D1%82%D0%BE%2017.09.2022,%2017%2014%2002.jpg"
+%}
+
+{% include video id="8ltuVkFeayI" provider="youtube" %}
+
 {% include gallery id="water-views-from-the-ferry" caption="Water patterns" %}
+
+{% include video id="QzimsOC-ddg" provider="youtube" %}
 
 {% include figure image_path="https://blog-image.fra1.cdn.digitaloceanspaces.com/sk%C3%B6ldpaddan-or-moving-to-sweden/Ferry/DSCF2945.jpg" alt="Sunset" caption="Sunset from the ferry" %}
 
