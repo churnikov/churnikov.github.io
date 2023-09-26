@@ -1,4 +1,48 @@
-# Minimal Mistakes remote theme starter
+# Churnikov's blog
+
+This is my personal blog. I write about my projects, my thoughts and my life.
+
+## How to run locally
+
+1. Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [Bundler](https://bundler.io/).
+    1. [How to install ruby on MacOS](https://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/#start-here-if-you-choose-the-long-and-manual-route)
+2. Clone this repository.
+3. Run `bundle install` in the repository directory.
+4. Run `bundle exec jekyll serve --livereload` to start the local server.
+5. Open [http://localhost:4000](http://localhost:4000) in your browser.
+
+## Scripts on MacOS to work with images:
+
+Set AWS credentials in `~/.aws/credentials`:
+
+```bash
+[default]
+aws_access_key_id = <your_access_key_id>
+aws_secret_access_key = <your_secret_access_key>
+```
+
+How to upload images to DigitalOcean Spaces:
+```bash
+for file in *.jpg; do
+    aws s3 cp --acl public-read --endpoint=https://fra1.digitaloceanspaces.com $file s3://path/on/s3/$file
+done
+```
+
+How to resize images on MacOS:
+```bash
+for file in *.jpg; do
+    sips -Z 800 "$file" --out "${file%.jpg}_resized.jpg"
+done
+```
+
+How to convert HEIC to JPG on MacOS:
+```bash
+for file in *.HEIC; do
+    sips -s format jpeg "$file" --out "${file%.heic}.jpg"
+done
+```
+
+## From the author of template
 
 Click [**Use this template**](https://github.com/mmistakes/mm-github-pages-starter/generate) button above for the quickest method of getting started with the [Minimal Mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes).
 
