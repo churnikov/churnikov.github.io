@@ -1,0 +1,11 @@
+body {
+    transition: opacity 0.3s;
+}
+
+.hover-object:hover {
+    transform: scale(1.2);
+}
+
+.hover-object:hover ~ *:not(.hover-object) {
+    opacity: 0.5;
+}

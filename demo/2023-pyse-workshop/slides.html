@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://chemwriter.com/sdk/chemwriter.css"> 
+    <script src="https://chemwriter.com/sdk/chemwriter.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/fonts/fontawesome-free-6.4.2-web/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://pyscript.net/latest/pyscript.css" />
+    <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
+	<py-config type="toml">
+		terminal = false
+		docked = false
+
+		[splashscreen]
+		autoclose = true
+
+		[[interpreters]]
+		src = "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"
+		name = "pyodide-0.23.4"
+		lang = "python"
+
+		</py-config>
+    <py-script src="assets/pyscripts/set_mol_lib.py"></py-script>
+    <py-script src="assets/pyscripts/get_mol_lib.py"></py-script>
+
+    <script>
+    initRDKitModule().then(function (instance) {
+      RDKitModule = instance;
+      console.log("version: " + RDKitModule.version());
+    });
+    </script>
+
+
+    <title>reveal-md</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./dist/reset.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/a11y-light.css" />
+
+    <link rel="stylesheet" href="./_assets/assets/style.css" />
+
+
+    <script>
+      document.write(
+        '<script src="http://' +
+          (location.host || 'localhost').split(':')[0] +
+          ':35729/livereload.js?snipver=1"></' +
+          'script>'
+      );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"># Telegram bots workshop
+
+![](/assets/images/qrcode-to-prentation.png)
+</script></section><section  data-markdown><script type="text/template">
+# Prerequisites
+
+- This workshop involves a bit of coding in python and using git
+- Setting up account on telegram requires phone number
+  - If you are not comfortable with this, you can still watch the workshop, I can even give you a bot token to play with, but you won't be able to use bots to full extent
+</script></section><section  data-markdown><script type="text/template">
+# Agenda
+
+- What is telegram?
+- Telegram from developer perspective
+- Setting up account and bot
+- Implementing some simple bots
+- Suggestions on hosting bots
+</script></section><section ><section data-markdown><script type="text/template"># What is telegram?
+
+<ul>
+    <li>
+        <a href="https://telegram.org/">Telegram</a> is a messaging app
+    </li>
+    <li class="fragment">
+        With a lot of features
+    </li>
+    <div class="fragment">
+  <li><small><b>Cloud-based messaging</b></small></li>
+  <li><small><b>Group chats</b></small></li>
+  <li><small><b>Channels</b></small></li>
+  <li><small><b>Secret Chats</b></small></li>
+  <li><small><b>Bots</b></small></li>
+  <li><small><b>Customization</b></small></li>
+  <li><small><b>Voice and video calls</b></small></li>
+  <li><small><b>File sharing</b></small></li>
+  <li><small><b>Stickers and GIFs</b></small></li>
+  <li><small><b>Polls and quizzes</b></small></li>
+  <li><small><b>Location sharing</b></small></li>
+  <li><small><b>Programmable APIs</b></small></li>
+  <li><small><b>Photo and video editing tools</b></small></li>
+  <li><small><b>Multiple account support</b></small></li>
+  <li><small><b>Desktop and web versions</b></small></li>
+  <li><small><b>No ads or subscription fees</b></small></li>
+  <li><small><b>Languages</b></small></li>
+  <li><small><b>Large file storage</b></small></li>
+  <li><small><b>Privacy-focused</b></small></li>
+  <li><small><b>Voice Chats</b></small></li>
+  <li><small><b>Animated Emojis</b></small></li>
+  <li><small><b>Chat folders</b></small></li>
+  <li><small><b>Silent messages</b></small></li>
+  <li><small><b>Scheduled messages</b></small></li>
+  <li><small><b>Slow Mode in Groups</b></small></li>
+  <li><small><b>Admin tools</b></small></li>
+  <li><small><b>Username feature</b></small></li>
+  <li><small><b>Contact import and export</b></small></li>
+  <li><small><b>Passcode lock</b></small></li>
+  <li><small><b>Two-step verification</b></small></li>
+  <li><small><b>Animated profile pictures for Premium users</b></small></li>
+  <li><small><b>Reaction feature</b></small></li>
+  <li><small><b>Social login for third-party apps</b></small></li>
+  <li><small><b>Interactive emoji with full-screen effects</b></small></li>
+  <li><small><b>Disappearing photos and videos in regular chats</b></small></li>
+  </div>
+</ul>
+</script></section><section data-markdown><script type="text/template">
+![Messaging apps popularity](/assets/images/messaging-apps-popularity.png)
+
+<small>Source: <a href="https://www.youtube.com/watch?v=Yg06i23MXss">Most Popular Messengers 1998 - 2022</a></small>
+</script></section><section data-markdown><script type="text/template">
+### Digital communication services usage
+
+![Telegram usage in Sweden](/assets/images/telegram-usage-in-sweden.png)
+
+<small>Source: <a
+href="https://svenskarnaochinternet.se/rapporter/svenskarna-och-internet-2022/hur-svenskarna-kommunicerar-pa-natet/signal-anvands-av-fa-internetanvandare/">Text
+dominerar, men videomeddelanden populärt bland yngre</a></small></script></section></section><section ><section data-markdown><script type="text/template">
+I like Telegram because it's developer friendly
+</script></section><section data-markdown><script type="text/template">
+## From developer perspective
+
+- [Client api](https://core.telegram.org/api)
+    - Custom clients
+    - Bots that work as you
+        - Can be used to scrape channels
+- Bot api
+    - You can create small application in telegram
+</script></section><section data-markdown><script type="text/template">
+![client-vs-bot](/assets/images/client-api-vs-bot-api-1.jpeg)
+</script></section><section data-markdown><script type="text/template">
+![client-vs-bot](/assets/images/client-api-vs-bot-api-2.jpeg)
+</script></section></section><section  data-markdown><script type="text/template">
+Example of bot
+
+[@pycon_se_bot](https://t.me/pycon_se_bot)
+</script></section><section ><section data-markdown><script type="text/template">
+## Key limitations
+
+- Bots **cannot start conversations** with users on their own.
+- Bots **need a hardware to run**, i.e. server.
+- There are **privacy restrictions**; bots cannot access all user data or messages.
+- Bots are **dependent on the Telegram API**, which might change or have limitations.
+- Some users may **distrust bots** due to privacy or security concerns.
+</script></section><section data-markdown><script type="text/template">
+## Examples
+
+Official bots
+* [@Sticker](https://telegram.me/Sticker) – Official Telegram stickers bot.
+* [@gif](https://telegram.me/gif) – Official Telegram gif bot.
+* [@pic](https://telegram.me/pic) – Official Telegram pic bot.
+* [@bing](https://telegram.me/bing) – Official Bing image search bot.
+
+User created bots (Ends with `bot`)
+- [@pycon_se_bot](https://telegram.me/pycon_se_bot) – PyCon Sweden bot
+- [@relevantxkcdbot](https://telegram.me/relevantxkcdbot) – Relevant XKCD bot
+- [@github_gist_bot](https://telegram.me/github_gist_bot) – GitHub Gist bot
+- [@nosticker_bot](https://telegram.me/nosticker_bot) – Bot that removes stickers from chat
+
+<small>Source <a href="https://github.com/ebertti/awesome-telegram">Awesome telegram</a></small>
+</script></section></section><section  data-markdown><script type="text/template">
+# Hands on part
+
+![](/assets/images/qrcode-to-prentation.png)</script></section><section  data-markdown><script type="text/template">
+### Getting account
+
+<ul>
+  <li>
+    Install telegram on your phone
+  </li>
+  <li>
+    Create account (this requires phone number)
+  </li>
+  <li class="fragment">
+    For convenience, you can either install desktop app or use <a href="https://web.telegram.org/">web version</a>
+  </li>
+</ul>
+
+<div class="container">
+  <div class="col">
+    <img src="/assets/images/tg-on-android.png" alt="Telegram" style="width: 35%;"/>
+  </div>
+  <div class="col">
+    <img src="/assets/images/tg-on-ios.png" alt="Telegram" style="width: 35%;"/>
+  </div>
+</div>
+
+</script></section><section ><section data-markdown><script type="text/template">
+### Setting up bot
+
+- Go to [@BotFather](https://t.me/BotFather) on telegram
+- Type `/newbot`
+- Follow instructions
+</script></section><section data-markdown><script type="text/template">
+### Setting up environment
+
+- Check that you have python 3.10 or higher `$ python --version`
+- `git clone git@github.com:churnikov/2023-telegram-bot-workshop.git`
+- `cd 2023-telegram-bot-workshop`
+- `python -m venv venv`
+- `source venv/bin/activate`
+- `pip install .`
+- `cp .env.example .env`
+- Put your bot token in `.env` file
+</script></section></section><section ><section data-markdown><script type="text/template">
+### Raw http requests
+
+`git checkout raw-http-requests`
+
+
+[Api reference](https://core.telegram.org/bots/api)
+</script></section><section data-markdown><script type="text/template">
+### Sending message
+
+`git checkout raw-http-response`
+
+[Send message method](https://core.telegram.org/bots/api#sendmessage)
+
+TODO: try finding clear history method
+
+[Spoiler](https://stackoverflow.com/questions/61976560/how-to-delete-queue-updates-in-telegram-api)
+</script></section></section><section  data-markdown><script type="text/template">
+# Wrappers
+
+Python
+- [python-telegram-bot](https://python-telegram-bot.org/)
+- [aiogram](https://docs.aiogram.dev/en/latest/)
+- [pyrogram](https://docs.pyrogram.org/)
+
+js
+- [telegraf](https://telegraf.js.org/#/)
+
+rust
+- [teloxide](https://github.com/teloxide/teloxide)
+
+And many more
+
+</script></section><section  data-markdown><script type="text/template">
+### Echo bot
+
+`git checkout echo-bot`
+
+<p>
+    <input type="text" id="echo-example" placeholder="Type in me" style="width: 40%;"/>
+    <button id="echo-example-button" py-click="echo()">Send</button>
+</p>
+<pre id="echo-example-output" class="overflow-y-scroll" style="height: 200px;"></pre>
+
+<py-script>
+def echo():
+    text = js.document.getElementById("echo-example").value
+    display(text, target="echo-example-output")
+</py-script>
+</script></section><section  data-markdown><script type="text/template">### Guessing game with 10 guesses and no reset
+
+`git checkout guessing-game-start`
+
+<p>
+    <input type="text" id="guessing-game-input-1" placeholder="Type in me" style="width: 40%;"/>
+    <button id="guessing-game-button-1" py-click="guess_1()">Send</button>
+</p>
+
+<pre id="guessing-game-output-1" class="overflow-y-scroll" style="height: 200px;"></pre>
+
+<py-script>
+import random
+import js
+class Game:
+    def __init__(self):
+        self.number = random.randint(1, 100)
+        self.guesses = 0
+        self.max_guesses = 10
+    def guess(self, number):
+        if self.guesses >= self.max_guesses:
+            return f"You have no more guesses left. The number was {self.number}"
+        self.guesses += 1
+        if number == self.number:
+            return "You guessed it!"
+        elif number < self.number:
+            return "Too low"
+        else:
+            return "Too high"
+    def reset(self):
+        self.__init__()
+game_1 = Game()
+def guess_1():
+    number = int(js.document.getElementById("guessing-game-input-1").value)
+    display(game_1.guess(number), target="guessing-game-output-1")
+</py-script>
+</script></section><section  data-markdown><script type="text/template">
+### Guessing game with reset button
+
+`git checkout guessing-game-reset`
+
+<p>
+    <input type="text" id="guessing-game-input" placeholder="Type in me" style="width: 40%;"/>
+    <button id="guessing-game-button" py-click="guess()">Send</button>
+    <button id="guessing-game-reset" py-click="reset()">Reset</button>
+</p>
+
+<pre id="guessing-game-output" class="overflow-y-scroll" style="height: 200px;"></pre>
+
+<py-script>
+game = Game()
+def reset():
+    game.reset()
+    js.document.getElementById("guessing-game-output").innerHTML = ""
+    display("Game reset", target="guessing-game-output")
+def guess():
+    number = int(js.document.getElementById("guessing-game-input").value)
+    display(game.guess(number), target="guessing-game-output")
+</py-script>
+</script></section><section  data-markdown><script type="text/template">
+### Guessing game but with dynamically generated buttons
+
+`git checkout guessing-game-dynamic-buttons`
+
+<py-script>
+import random
+import js
+target_number = random.randint(1, 100)
+current_min = 1
+current_max = 100
+def update_buttons(min_num, max_num):
+    global buttons_div
+    buttons_div.innerHTML = ""
+    step = (max_num - min_num) // 9
+    for i in range(10):
+        guess = min_num + i * step
+        button = "<" + "button" + (" py-click=guess_number({})>{}</button>".format(guess, guess))
+        buttons_div.innerHTML += button
+def setup_game():
+    global buttons_div
+    buttons_div = js.document.getElementById("buttons-div")
+    update_buttons(current_min, current_max)
+def guess_number(guess):
+    global target_number, current_min, current_max
+    if guess == target_number:
+        Element('status').write("Congratulations! You've guessed the right number: " + str(target_number))
+        target_number = random.randint(1, 100)  # Reset the game for the next round.
+        current_min, current_max = 1, 100
+        update_buttons(current_min, current_max)
+    elif guess < target_number:
+        Element('status').write("Higher... Try again.")
+        current_min = guess + 1
+    else:
+        Element('status').write("Lower... Try again.")
+        current_max = guess - 1
+    update_buttons(current_min, current_max)
+setup_game()
+</py-script>
+<div id="status"></div>
+<div id="buttons-div"></div>
+</script></section><section  data-markdown><script type="text/template">
+### Inline buttons
+
+`git checkout inline-buttons`
+</script></section><section ><section data-markdown><script type="text/template">
+## Hosting bots
+
+There are two ways to host bots
+
+<div class="container">
+  <div class="col">
+    <p>You can use long polling</p>
+    <img src="/assets/images/long-polling-illustration.png" alt="Long polling" style="width: 70%;"/>
+  </div>
+  <div class="col">
+    <p>Or you can use webhooks</p>
+    <img src="/assets/images/webhook-illustration.png" alt="Webhooks" style="width: 70%;"/>
+  </div>
+</div></script></section><section data-markdown><script type="text/template">
+## Hosting bots
+
+- Long polling is easier to setup
+- Rent some server, install python, run bot
+</script></section><section data-markdown><script type="text/template">
+## Hosting solutions
+
+- [Digital Ocean](https://www.digitalocean.com/)
+- [Heroku](https://www.heroku.com/)
+- [AWS](https://aws.amazon.com/)
+- [PythonAnywhere](https://www.pythonanywhere.com/)
+
+<!-- --- -->
+
+<!-- - You can see now, that on backend, developer can see a lot, so be mindful of what bots you start. -->
+<!-- - As with free apps, check who is the developer. It's nice, in my opinion, when there is a source code available, so you can check what the bot is doing. -->
+
+</script></section></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        slideNumber: true,
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"controls":true,"progress":false,"history":true,"center":true,"transition":"none","slideNumber":"c/t","showSlideNumber":"all","width":"100%"}, queryOptions);
+    </script>
+
+    <script src="https://pyscript.net/snapshots/2023.05.1.RC3/pyscript.js"></script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
