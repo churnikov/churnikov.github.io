@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        var startTime=Date.now()
+    </script>
+    <!-- Uncomment only one of the following two lines to compare performance -->
+    <script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+    <!-- <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script> -->
+		<py-config>
+				packages = ['rich']
+		</py-config>
+</head>
+<body>
+<script type="py">
+    from pyscript import display
+    display(f"hello, world! {1+2=}")
+</script>
+
+<script type="py" worker>
+    from pyscript import display
+    display("first worker")
+    x = 1
+    display(f"{x=}")
+</script>
+
+<script type="py" worker>
+    from pyscript import display
+    display("second worker")
+    display(f"{x=}") # Error - each 'worker' tag is a separate worker
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css" />
+		<script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+	</head>
+	<body>
+		<button py-click="get_random_number">Get random number</button>
+		<div id="output"></div>
+		<script type="py" target="output">
+from pyscript import display
+from random import randint
+def get_random_number(event):
+		display(str(randint(0, 100)))
+		</script>
+	
+	</body>
+</html>

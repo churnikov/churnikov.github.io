@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://pyscript.net/releases/2023.11.1/core.css" />
+		<script type="module" src="https://pyscript.net/releases/2023.11.1/core.js"></script>
+	</head>
+	<body>
+	<button py-click="start_worker">Start worker</button>
+	<div id="output-worker-1"></div>
+	<script type="py" target="output-worker-1" worker>
+from pyscript import display
+from itertools import count
+def start_worker(event):
+    counter = count()
+    while True:
+        display(f"worker: {next(counter)}")
+	</script>				
+	</body>
+</html>
