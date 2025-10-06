@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Force light theme regardless of OS setting -->
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light"> <!-- older Safari -->
+
+  <title>Антропоморфическая лягушка из комиксов, на голове которой надет шестицветный парик</title>
+  <style>
+    /* Fixed light palette */
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --ui: #f5f5f5;
+      color-scheme: light; /* ensure native controls render light */
+    }
+
+    .break { flex-basis: 100%; height: 0; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                   "JetBrains Mono","Fira Mono","DejaVu Sans Mono", monospace;
+      user-select: none;
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 3;
+      display: flex; gap: .5rem; align-items: center; flex-wrap: wrap;
+      padding: .6rem .8rem;
+      background: #ffffff;                 /* always white */
+      box-shadow: 0 1px 0 rgba(0,0,0,.08); /* subtle separator */
+      backdrop-filter: none;               /* optional: no blur needed */
+    }
+
+    .spacer { flex: 1 1 auto; min-width: 1px; }
+
+    button, select {
+      appearance: auto; font: inherit; color: inherit;
+      background: var(--ui); border: 1px solid #0003; border-radius: .6rem;
+      padding: .35rem .6rem; cursor: pointer;
+    }
+
+    .meter { min-width: 6ch; text-align: right; opacity: .75; font-variant-numeric: tabular-nums; }
+
+    .wrap {
+      width: 100vw; height: calc(100vh - 48px);
+      overflow: hidden; touch-action: none; cursor: grab;
+    }
+    .wrap.panning { cursor: grabbing; }
+    canvas { display: block; width: 100%; height: 100%; }
+
+    .toast {
+      position: fixed; left: 12px; bottom: 12px; z-index: 4;
+      background: #0009; color: #fff; padding: .5rem .7rem; border-radius: .5rem;
+      font-size: .9rem; max-width: min(90vw, 50ch);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <strong>Антропоморфическая лягушка из комиксов, на голове которой надет шестицветный парик</strong>
+  <div class="break"></div>
+
+  <label>Color
+    <select id="colorMode">
+      <option value="image" selected>Цветасто</option>
+      <option value="palette">Запрещённое движение</option>
+      <option value="mono">Православно</option>
+    </select>
+  </label>
+  <button id="zoomOut" title="Zoom out (−)">−</button>
+  <button id="zoomIn"  title="Zoom in (+)">+</button>
+  <button id="reset"   title="Reset (R)">Reset</button>
+  <span class="meter" id="meter">100%</span>
+
+  <label>Download
+    <select id="downloadKind">
+      <option value="txt">txt</option>
+      <option value="svg">svg</option>
+      <option value="svg-colored">svg colored</option>
+    </select>
+  </label>
+  <button id="downloadGo" title="Download selected">⬇</button>
+</header>
+
+  <div class="wrap" id="wrap">
+    <canvas id="view" aria-label="Text art canvas"></canvas>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+<script>
+/* ---------- Config ---------- */
+const ASCII_TXT = 'text_art_large_dithered.txt';
+const COLOR_IMAGE = 'color_source.png';  // ideally the 1:1 resized version
+const BASE_FONT_PX = 2.5;
+const MIN_FONT_PX  = 2;
+const MAX_FONT_PX  = 32;
+const FONT_STACK = '"JetBrains Mono","DejaVu Sans Mono","Fira Mono","PT Mono",Menlo,Consolas,monospace';
+const FONT_WEIGHT = '700'; // semi-bold helps edges look cleaner
+
+/* ---------- State ---------- */
+let lines = [];
+let rows = 0, cols = 0;
+let fontPx = BASE_FONT_PX;
+let viewX = 0, viewY = 0;
+let isPanning = false, panStart = {x:0,y:0, vx:0, vy:0};
+let colorMode = 'image';
+let dpr = window.devicePixelRatio || 1;
+
+const wrap = document.getElementById('wrap');
+const canvas = document.getElementById('view');
+const ctx = canvas.getContext('2d');
+const meter = document.getElementById('meter');
+const toast = document.getElementById('toast');
+
+function showToast(msg, ms=3000){
+  toast.textContent = msg; toast.hidden = false;
+  clearTimeout(showToast._t); showToast._t = setTimeout(()=>toast.hidden=true, ms);
+}
+function setFont(px){
+  fontPx = Math.max(MIN_FONT_PX, Math.min(MAX_FONT_PX, px));
+  meter.textContent = Math.round(fontPx / BASE_FONT_PX * 100) + '%';
+  requestDraw();
+}
+function resizeCanvas(){
+  dpr = window.devicePixelRatio || 1;
+  const rect = wrap.getBoundingClientRect();
+  canvas.width  = Math.floor(rect.width  * dpr);
+  canvas.height = Math.floor(rect.height * dpr);
+  canvas.style.width  = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  requestDraw();
+}
+window.addEventListener('resize', resizeCanvas);
+
+function measureCell(){
+  ctx.save();
+  ctx.font = `${FONT_WEIGHT} ${fontPx}px ${FONT_STACK}`;
+  const m = ctx.measureText('0');                  // monospaced probe
+  // Quantize width/height to device-pixel grid to avoid fractional accumulation
+  const cellW = Math.round(m.width * dpr) / dpr;
+  const ascent  = (m.actualBoundingBoxAscent  || fontPx * 0.8);
+  const descent = (m.actualBoundingBoxDescent || fontPx * 0.2);
+  const rawH = ascent + descent;
+  const cellH = Math.round(rawH * dpr) / dpr;
+  ctx.restore();
+  return { cellW, cellH, ascent: ascent + (cellH - rawH) * 0.5 }; // keep baseline centered
+}
+
+
+/* ---------- Load ASCII ---------- */
+async function loadAscii(){
+  const txt = await fetch(ASCII_TXT).then(r => r.text());
+  lines = txt.replace(/\r\n?/g, '\n').split('\n');
+  rows = lines.length;
+  cols = Math.max(...lines.map(l => l.length));
+  lines = lines.map(l => (l + ' '.repeat(cols - l.length))); // pad
+}
+
+/* ---------- Build color grid ---------- */
+let gridRGBA = null;
+let paletteCols = null;
+
+function buildPalette(){
+  const pal = new Array(cols);
+  for (let x=0; x<cols; x++){
+    const t = x / Math.max(1, cols-1);
+    const r = Math.floor(255 * (0.5 + 0.5*Math.sin((t+0.00)*Math.PI*2)));
+    const g = Math.floor(255 * (0.5 + 0.5*Math.sin((t+0.33)*Math.PI*2)));
+    const b = Math.floor(255 * (0.5 + 0.5*Math.sin((t+0.66)*Math.PI*2)));
+    pal[x] = [r,g,b];
+  }
+  return pal;
+}
+
+async function loadColorImage(){
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  return new Promise((res, rej) => {
+    img.onload = () => res(img);
+    img.onerror = () => rej(new Error('Image failed to load'));
+    img.src = COLOR_IMAGE;
+  });
+}
+
+function buildColorGridFromImage(img){
+  const off = ('OffscreenCanvas' in window)
+    ? new OffscreenCanvas(cols, rows)
+    : Object.assign(document.createElement('canvas'), { width: cols, height: rows });
+  const og = off.getContext('2d', { willReadFrequently: true });
+
+  // Fill white so margins don't become black
+  og.fillStyle = '#fff';
+  og.fillRect(0, 0, cols, rows);
+
+  // Fit the image to the full grid (use 1:1 image if you have it)
+  og.imageSmoothingEnabled = false;
+  og.drawImage(img, 0, 0, cols, rows);
+
+  gridRGBA = og.getImageData(0,0,cols,rows).data;
+}
+
+/* ---------- Draw ---------- */
+let raf = null;
+function requestDraw(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }
+
+function draw(){
+  if (!rows || !cols) return;
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, canvas.width/dpr, canvas.height/dpr);
+
+  const { cellW, cellH, ascent } = measureCell();
+  const viewW = canvas.width / dpr, viewH = canvas.height / dpr;
+
+  const left   = Math.max(0, Math.floor(viewX / cellW));
+  const top    = Math.max(0, Math.floor(viewY / cellH));
+  const right  = Math.min(cols, Math.ceil((viewX + viewW) / cellW));
+  const bottom = Math.min(rows, Math.ceil((viewX + viewH) / cellH)); // typo-proof: use viewX? keep viewH
+
+  ctx.font = `${FONT_WEIGHT} ${fontPx}px ${FONT_STACK}`;
+  ctx.textBaseline = 'alphabetic';
+
+  for (let gy = top; gy < bottom; gy++){
+    const rowStr = lines[gy];
+    for (let gx = left; gx < right; gx++){
+      const ch = rowStr[gx];
+      if (ch === ' ') continue;
+
+      if (colorMode === 'image' && gridRGBA){
+        const p = (gy*cols + gx) * 4;
+        ctx.fillStyle = `rgb(${gridRGBA[p]},${gridRGBA[p+1]},${gridRGBA[p+2]})`;
+      } else if (colorMode === 'palette'){
+        const [r,g,b] = paletteCols[gx];
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+      } else {
+        ctx.fillStyle = '#111';
+      }
+
+      // Snap positions to whole CSS pixels (post-DPR)
+      const px = Math.round(gx * cellW - viewX);
+      const py = Math.round((gy + 1) * cellH - viewY - (cellH - ascent));
+      ctx.fillText(ch, px, py);
+    }
+  }
+}
+
+/* ---------- Map-style zoom & pan ---------- */
+function zoomAt(factor, clientX, clientY){
+  const rect = canvas.getBoundingClientRect();
+  const ox = clientX - rect.left, oy = clientY - rect.top;
+  const { cellW, cellH } = measureCell();
+  const gx = (viewX + ox) / cellW;
+  const gy = (viewY + oy) / cellH;
+
+  const next = Math.max(MIN_FONT_PX, Math.min(MAX_FONT_PX, fontPx * factor));
+  if (next === fontPx) return;
+  setFont(next);
+
+  const m2 = measureCell();
+  viewX = gx * m2.cellW - ox;
+  viewY = gy * m2.cellH - oy;
+  // snap the viewport to whole pixels so future pans stay crisp
+  viewX = Math.round(viewX);
+  viewY = Math.round(viewY);
+  requestDraw();
+}
+
+wrap.addEventListener('wheel', (e) => {
+  if (e.shiftKey) return;
+  e.preventDefault();
+  zoomAt(e.deltaY < 0 ? 1.12 : 1/1.12, e.clientX, e.clientY);
+}, { passive: false });
+
+wrap.addEventListener('dblclick', (e) => {
+  zoomAt(e.shiftKey ? 1/1.12 : 1.12, e.clientX, e.clientY);
+});
+
+wrap.addEventListener('pointerdown', (e) => {
+  isPanning = true;
+  wrap.setPointerCapture(e.pointerId);
+  panStart = { x: e.clientX, y: e.clientY, vx: viewX, vy: viewY };
+  wrap.classList.add('panning');
+});
+wrap.addEventListener('pointermove', (e) => {
+  if (!isPanning) return;
+  viewX = panStart.vx - (e.clientX - panStart.x);
+  viewY = panStart.vy - (e.clientY - panStart.y);
+  requestDraw();
+});
+function endPan(e){ if(!isPanning) return; isPanning=false; wrap.releasePointerCapture?.(e.pointerId); wrap.classList.remove('panning'); }
+wrap.addEventListener('pointerup', endPan);
+wrap.addEventListener('pointercancel', endPan);
+wrap.addEventListener('lostpointercapture', () => { isPanning=false; wrap.classList.remove('panning'); });
+
+// pinch zoom
+const touches = new Map();
+wrap.addEventListener('pointerdown', e => touches.set(e.pointerId, e));
+wrap.addEventListener('pointerup',   e => touches.delete(e.pointerId));
+wrap.addEventListener('pointercancel', e => touches.delete(e.pointerId));
+wrap.addEventListener('pointermove', (e) => {
+  if (!touches.has(e.pointerId)) return;
+  touches.set(e.pointerId, e);
+  if (touches.size === 2) {
+    const [a,b] = [...touches.values()];
+    const dx = a.clientX - b.clientX, dy = a.clientY - b.clientY;
+    const dist = Math.hypot(dx, dy);
+    if (!wrap._prevDist) wrap._prevDist = dist;
+    const factor = dist / wrap._prevDist;
+    zoomAt(factor, (a.clientX+b.clientX)/2, (a.clientY+b.clientY)/2);
+    wrap._prevDist = dist;
+  } else {
+    wrap._prevDist = null;
+  }
+});
+
+/* ---------- Downloads (txt / svg / svg-colored) ---------- */
+const dlKind = document.getElementById('downloadKind');
+document.getElementById('downloadGo').addEventListener('click', () => downloadSelected(dlKind.value));
+
+function saveBlob(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+function escapeXML(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function getFG(){ return getComputedStyle(document.documentElement).getPropertyValue('--fg').trim() || '#111'; }
+
+async function downloadSelected(kind){
+  if (!rows || !cols) return;
+
+  if (kind === 'txt'){
+    const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+    saveBlob(blob, 'text_art.txt');
+    return;
+  }
+
+  // common metrics (use current font size so the SVG matches what you see)
+  const { cellW, cellH, ascent } = measureCell();
+  const W = cols * cellW, H = rows * cellH;
+
+  // Build tspans: trim trailing spaces to keep file smaller
+  const tspans = [];
+  for (let y=0; y<rows; y++){
+    const line = lines[y].replace(/\s+$/,'');
+    if (!line) continue;
+    const yy = (y * cellH + ascent).toFixed(2);
+    tspans.push(`<tspan x="0" y="${yy}">${escapeXML(line)}</tspan>`);
+  }
+
+  let defs = '', fillAttr = `fill="${getFG()}"`;
+  if (kind === 'svg-colored'){
+    // embed the color image as a data-URI and fill text via a pattern
+    try {
+      const blob = await fetch(COLOR_IMAGE).then(r => r.blob());
+      const dataURL = await new Promise(res => { const fr = new FileReader(); fr.onload=()=>res(fr.result); fr.readAsDataURL(blob); });
+      defs = `<defs>
+        <pattern id="imgFill" patternUnits="userSpaceOnUse" width="${W}" height="${H}">
+          <image href="${dataURL}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="none"/>
+        </pattern>
+      </defs>`;
+      fillAttr = 'fill="url(#imgFill)"';
+    } catch (e) {
+      showToast('Could not embed color image; exporting monochrome SVG.');
+    }
+  }
+
+  const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${W.toFixed(2)}" height="${H.toFixed(2)}" viewBox="0 0 ${W.toFixed(2)} ${H.toFixed(2)}">
+  ${defs}
+  <rect width="100%" height="100%" fill="white"/>
+  <text ${fillAttr} font-family="ui-monospace, monospace" font-size="${fontPx}" xml:space="preserve">
+    ${tspans.join('\n    ')}
+  </text>
+</svg>`;
+
+  const blob = new Blob([svg], {type:'image/svg+xml;charset=utf-8'});
+  saveBlob(blob, kind === 'svg-colored' ? 'text_art_colored.svg' : 'text_art.svg');
+}
+
+/* ---------- UI ---------- */
+zoomIn.onclick  = () => zoomAt(1.12,  window.innerWidth/2, window.innerHeight/2);
+zoomOut.onclick = () => zoomAt(1/1.12,window.innerWidth/2, window.innerHeight/2);
+reset.onclick   = () => { setFont(BASE_FONT_PX); viewX = viewY = 0; requestDraw(); };
+document.getElementById('colorMode').onchange = (e) => { colorMode = e.target.value; requestDraw(); };
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === '+') zoomIn.click();
+  if (e.key === '-') zoomOut.click();
+  if (e.key.toLowerCase() === 'r') reset.click();
+});
+
+/* ---------- Boot ---------- */
+(async function(){
+  await loadAscii();
+  try {
+    const img = await loadColorImage();
+    buildColorGridFromImage(img);   // draws image 1:1 onto the grid
+  } catch (err) {
+    colorMode = 'palette';
+    document.getElementById('colorMode').value = 'palette';
+    showToast('Color image failed to load — using palette.');
+  }
+  if (!paletteCols) paletteCols = buildPalette();
+  resizeCanvas();
+  showToast(`Loaded ${rows}×${cols} grid`);
+})();
+</script>
+</body>
+</html>
+
