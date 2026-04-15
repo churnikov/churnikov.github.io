@@ -22,6 +22,9 @@ twitter_username: churnikov
 github_username: churnikov
 minimal_mistakes_skin: default
 search: true
+after_footer_scripts:
+  - https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
+  - /assets/js/mermaid-init.js
 
 # Build settings
 markdown: kramdown
