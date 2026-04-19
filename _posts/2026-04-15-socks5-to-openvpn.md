@@ -1,3 +1,17 @@
+---
+title: "SOCKS5-прокси на ноутбуке → Tailscale → VM с OpenVPN → доступ к внутренним сервисам"
+excerpt_separator: "<!--more-->"
+categories:
+  - Blog
+tags:
+  - Tailscale
+  - OpenVPN
+  - SSH
+  - SOCKS5
+  - Networking
+  - VPN
+layout: splash
+---
 ```mermaid
 flowchart LR
     browser["Ноутбук<br/>браузер или curl"]
